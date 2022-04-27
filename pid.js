@@ -159,6 +159,7 @@
 	var main_loop = function(){
 		world_tick();
 		draw();
+		update_var();
 		window.requestAnimationFrame(main_loop);
 	}
 
@@ -172,7 +173,7 @@
 				control_loop_frequency = 30;
 				window.frequency_box.value = 30;
 			}
-			reset();
+			//reset();
 		}
 	};
 
