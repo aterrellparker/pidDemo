@@ -117,7 +117,7 @@ class pid {
             'x': x - coordinateSystem['x'],
             'y': y - coordinateSystem['y']
         };
-     
+        
         mTheta = Math.atan2(mouse['y'], mouse['x']);
         thetaPid.setTarget = mTheta;
         document.getElementById('mouseTheta').innerHTML = mTheta;
