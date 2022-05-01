@@ -35,11 +35,11 @@ class pid {
         this.error = this.target - this.current;
         //  console.log(this.error)
 
-        if (this.discon = true) {
-            if (this.error > Math.PI) {
-                this.error = -1 * Math.abs(2 * Math.PI - Math.abs(this.error));
-            }
-        }
+        //if (this.discon = true) {
+        //    if (this.error > Math.PI) {
+        //        this.error = -1 * Math.abs(2 * Math.PI - Math.abs(this.error));
+        //    }
+        //}
         this.output = this.proportional()
 
         // this.integrals += this.error;
@@ -90,13 +90,13 @@ class pid {
         input = document.querySelector('input');
         input.addEventListener('change', updateValue);
 
-        window.addEventListener('resize', winch);
+       // window.addEventListener('resize', winch);
         winch();
         coordinateSystem = { 'x': cnvs.width / 2, 'y': cnvs.height / 2 };
         trackRadius = cnvs.height / 2.5;
         
         worldTick();
-        thetaPid.discon = true;
+       // thetaPid.discon = true;
         setInterval(function () { thetaPid.controlLoop() }, thetaPid.dt);
         setInterval(function () { omegaPid.controlLoop() }, thetaPid.dt);
     };
@@ -117,17 +117,16 @@ class pid {
             'x': x - coordinateSystem['x'],
             'y': y - coordinateSystem['y']
         };
-        mDist = Math.sqrt(mouse['x'] * mouse['x'] + mouse['y'] * mouse['y']);
-        document.getElementById('magMouse').innerHTML = mDist;
-
+     
         mTheta = Math.atan2(mouse['y'], mouse['x']);
         thetaPid.setTarget = mTheta;
         document.getElementById('mouseTheta').innerHTML = mTheta;
     };
 
     var winch = function () {
-        cnvs.width = window.innerWidth;
-        cnvs.height = window.innerHeight - window.controls.offsetHeight;
+
+        cnvs.width = (window.innerWidth) / 1.5;
+        cnvs.height = (window.innerHeight - window.controls.offsetHeight)   ;
     };
   
 
