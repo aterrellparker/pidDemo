@@ -23,12 +23,13 @@ class pid {
         this.current = 0;
         this.target = 0;
         this.error = 0;
+        this.lastError = 0;
+        this.integrals = 0;
         
     }
     //The controll loop which runs repeatedly according to the refresh rate;
     controlLoop = function () {
       
-        this.lastError = this.error;
 
 
         //First and foremost calculates error of the PID controller.
@@ -40,11 +41,11 @@ class pid {
         //        this.error = -1 * Math.abs(2 * Math.PI - Math.abs(this.error));
         //    }
         //}
-        this.output = this.proportional()
+        this.output = this.proportional() + this.derivative() + this.integral()
 
         // this.integrals += this.error;
 
-        this.output += this.derivative()
+        this.lastError = this.error;
        
     }
 
@@ -53,7 +54,8 @@ class pid {
     }
     
     integral = function () {
-        return this.kI * this.integrals * this.dt;
+        this.integrals += this.error * this.dt;
+        return this.kI * this.integrals;
     }
 
     derivative = function () {
@@ -79,8 +81,8 @@ class pid {
 (function () {
     var coordinateSystem, trackRadius;
     let object = new weight(0, 0, 0);
-    let thetaPid = new pid(.03, 0, 0, 10);
-    let omegaPid = new pid(.35, 0, 0, 10);
+    let thetaPid = new pid(.005, 0, 0, 5);
+    let omegaPid = new pid(.035, 0, 15, 5);
     window.onload = function () {
         cnvs = document.getElementById('cnvs');
 
@@ -147,6 +149,8 @@ class pid {
         omegaPid.current = object.omega
 
         object.alpha = omegaPid.output
+
+        
 
 
         document.getElementById('objectTheta').innerHTML = object.theta;

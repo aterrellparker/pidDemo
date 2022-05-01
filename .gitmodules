@@ -1,0 +1,3 @@
+[submodule "jim-knopf"]
+	path = jim-knopf
+	url = https://github.com/eskimoblood/jim-knopf
