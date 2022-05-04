@@ -30,10 +30,12 @@ class pid {
     //The controll loop which runs repeatedly according to the refresh rate;
     controlLoop = function () {
       
-
-
+        this.lastError = this.error;
         //First and foremost calculates error of the PID controller.
         this.error = this.target - this.current;
+
+        this.output = this.proportional() + this.derivative() + this.integral()
+
         //  console.log(this.error)
 
         //if (this.discon = true) {
@@ -41,11 +43,7 @@ class pid {
         //        this.error = -1 * Math.abs(2 * Math.PI - Math.abs(this.error));
         //    }
         //}
-        this.output = this.proportional() + this.derivative() + this.integral()
-
-        // this.integrals += this.error;
-
-        this.lastError = this.error;
+          
        
     }
 
@@ -54,7 +52,7 @@ class pid {
     }
     
     integral = function () {
-        this.integrals += this.error * this.dt;
+        this.integrals += this.kIthis.error * this.dt;
         return this.kI * this.integrals;
     }
 
@@ -81,8 +79,8 @@ class pid {
 (function () {
     var coordinateSystem, trackRadius;
     let object = new weight(0, 0, 0);
-    let thetaPid = new pid(.005, 0, 0, 5);
-    let omegaPid = new pid(.035, 0, 15, 5);
+    let thetaPid = new pid(1, .1, 0, 30);
+    let omegaPid = new pid(1, 0, 0, 30);
     window.onload = function () {
         cnvs = document.getElementById('cnvs');
 
@@ -91,6 +89,7 @@ class pid {
 
         input = document.querySelector('input');
         input.addEventListener('change', updateValue);
+
 
        // window.addEventListener('resize', winch);
         winch();
@@ -146,9 +145,13 @@ class pid {
 
         object.omega += object.alpha
 
+        object.omega += .0005;
+
         omegaPid.current = object.omega
 
-        object.alpha = omegaPid.output
+        object.alpha = omegaPid.output;
+
+       
 
         
 

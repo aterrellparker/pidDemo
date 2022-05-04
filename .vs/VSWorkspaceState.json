@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\jim-knopf",
+    "\\src\\css",
+    "\\src\\scripts"
   ],
-  "SelectedNode": "\\pidAngular.js",
+  "SelectedNode": "\\jim-knopf\\index.html",
   "PreviewInSolutionExplorer": false
 }
