@@ -15,9 +15,27 @@ class pid {
     constructor(proportionalGain, integralGain, derivativeGain, controlFrequency) {
 
         this.kP = proportionalGain;
+
+
+        var input = document.createElement("input");
+        input.id = 'input-';
+        input.type = 'text';
+        input.name = 'name';
+        input.placeholder = 'Input number ';
+
+
+   
         this.kI = integralGain;
+
+
         this.kD = derivativeGain;
         this.dt = 1000 / controlFrequency;
+
+
+
+
+
+
         //Sets initial vairables to zero need to find a better way to avoid exceptions
         this.output = 0;
         this.current = 0;
@@ -52,7 +70,7 @@ class pid {
     }
     
     integral = function () {
-        this.integrals += this.kIthis.error * this.dt;
+        this.integrals += this.kI* this.error * this.dt;
         return this.kI * this.integrals;
     }
 
@@ -70,25 +88,31 @@ class pid {
 
     //Sets the current of the pid controller
     set setCurrent(val) {
-        this.current = val;
-      
+        this.current = val;    
     }
- 
+    set setProportional(val) {
+        this.kP = val;
+    }
+    set setIntegral(val) {
+        this.kI = val;
+    }
+    set setDerivative(val) {
+        this.kD = val;
+    }
 
 }
 (function () {
     var coordinateSystem, trackRadius;
     let object = new weight(0, 0, 0);
-    let thetaPid = new pid(1, .1, 0, 30);
-    let omegaPid = new pid(1, 0, 0, 30);
+    let thetaPid = new pid(.01, 0, 5, 30);
+    let omegaPid = new pid(.01, 0, 5, 30);
     window.onload = function () {
         cnvs = document.getElementById('cnvs');
 
         ctx = cnvs.getContext('2d');
         cnvs.addEventListener('mousemove', updateMouse);
 
-        input = document.querySelector('input');
-        input.addEventListener('change', updateValue);
+
 
 
        // window.addEventListener('resize', winch);
@@ -99,6 +123,16 @@ class pid {
         worldTick();
        // thetaPid.discon = true;
         setInterval(function () { thetaPid.controlLoop() }, thetaPid.dt);
+
+        var form = document.getElementById('controls');
+
+  
+    
+    //    form.appendChild(thetaPid.input);
+
+
+
+
         setInterval(function () { omegaPid.controlLoop() }, thetaPid.dt);
     };
 
@@ -121,7 +155,7 @@ class pid {
         
         mTheta = Math.atan2(mouse['y'], mouse['x']);
         thetaPid.setTarget = mTheta;
-        document.getElementById('mouseTheta').innerHTML = mTheta;
+
     };
 
     var winch = function () {
@@ -145,21 +179,12 @@ class pid {
 
         object.omega += object.alpha
 
-        object.omega += .0005;
+        object.omega += 0;
 
         omegaPid.current = object.omega
 
         object.alpha = omegaPid.output;
 
-       
-
-        
-
-
-        document.getElementById('objectTheta').innerHTML = object.theta;
-
-
-        document.getElementById('objectOmega').innerHTML = object.omega;
         draw();
         window.requestAnimationFrame(worldTick);
     };

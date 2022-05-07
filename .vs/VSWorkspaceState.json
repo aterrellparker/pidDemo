@@ -2,9 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\jim-knopf",
+    "\\src",
     "\\src\\css",
     "\\src\\scripts"
   ],
-  "SelectedNode": "\\jim-knopf\\index.html",
+  "SelectedNode": "\\src\\scripts\\pid.js",
   "PreviewInSolutionExplorer": false
 }

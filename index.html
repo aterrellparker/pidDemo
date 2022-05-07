@@ -27,41 +27,9 @@
 </head>
 <body>
 	<div class="w3-row">
-		
 		<div class="w3-third">
-		
-			<div>Mouse Distance: <div id="magMouse"></div></div>
-			<div>Object Theta: <div id="objectTheta"></div></div>
-			<div>Mouse Theta: <div id="mouseTheta"></div></div>
-			<div>PID Error: <div id="error"></div></div>
-			<div>PID Output: <div id="output"></div></div>
-			<div>Object Omega: <div id="objectOmega"></div></div>
-			<form>
-				<div class="control">
-					<label>Target Angle:</label>
-					<input type="number" id="input" step="50" />
-				</div>
-			</form>
 			<form id="controls">
-				<div class="control">
-					<label>Proportional gain:</label>
-					<input type="number" id="proportional_box" step=".001" required />
-				</div>
-				<div class="control">
-					<label>Integral gain:</label>
-					<input type="number" id="integral_box" step=".001" required />
-				</div>
-				<div class="control">
-					<label>Derivative gain:</label>
-					<input type="number" id="derivative_box" step=".001" required />
-				</div>
-				<div class="control">
-					<label>Control loop frequency (Hz):</label>
-					<input type="number" id="frequency_box" required />
-				</div>
-				<div class="control">
-					<input id="submit" type="submit" value="Update parameters" />
-				</div>
+				
 			</form>
 			<div id="description-container">
 				<article id="description">
